@@ -1,0 +1,105 @@
+// ----- Colors -----
+
+$dark: #444
+
+// ----- Typography -----
+
+h1, h2, h3, h4, h5, h6
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+  font-weight: 300
+
+// ----- Layout -----
+
+@mixin at-width($width)
+  @media all and (min-width: $width)
+    @content
+
+@mixin below-width($width)
+  @media all and (max-width: $width - 1)
+    @content
+
+@mixin hazy($opacity)
+  opacity: $opacity
+  filter: alpha(opacity=$opacity * 100)
+
+@mixin border-box
+  box-sizing: border-box
+  -moz-box-sizing: border-box
+  -webkit-box-sizing: border-box
+
+body.loading
+  #expenses-table
+    display: none
+
+  &:before
+    @include hazy(0.75)
+
+    content: ""
+    display: block
+    position: fixed
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    background: #fff url(loading.gif) no-repeat center
+    z-index: 1
+
+main
+  @include at-width(960px)
+    width: 75%
+    min-width: 960px
+    margin: auto
+
+  @include below-width(960px)
+    width: 100%
+
+  header
+    font-size: 200%
+
+  form
+    margin-top: 15px
+    margin-bottom: 15px
+
+    input[type="text"]
+      @include border-box
+
+      display: block
+      width: 100%
+      padding: 10px 0
+      border: none
+      border-bottom: 1px solid black
+      font-size: 200%
+
+  table
+    border-collapse: collapse
+
+    th, td
+      padding: 0 1em
+      font-family: sans-serif
+      text-align: left
+
+    th:first-child, td:first-child
+      padding-left: 0
+
+    th:last-child, td:last-child
+      text-align: right
+
+    td:last-child:before
+      content: "$"
+      display: block
+      float: left
+      margin-right: 1em
+
+    thead, tbody
+      tr:last-child
+        th, td
+          padding-bottom: 25px
+
+    tfoot
+      tr
+        background-color: #def
+
+      td
+        height: 50px
+        font-weight: bold
+        vertical-align: middle

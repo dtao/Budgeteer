@@ -1,0 +1,65 @@
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300; }
+
+body.loading #expenses-table {
+  display: none; }
+body.loading:before {
+  opacity: 0.75;
+  filter: alpha(opacity=75);
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white url(loading.gif) no-repeat center;
+  z-index: 1; }
+
+@media all and (min-width: 960px) {
+  main {
+    width: 75%;
+    min-width: 960px;
+    margin: auto; } }
+@media all and (max-width: 959px) {
+  main {
+    width: 100%; } }
+main header {
+  font-size: 200%; }
+main form {
+  margin-top: 15px;
+  margin-bottom: 15px; }
+  main form input[type="text"] {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 1px solid black;
+    font-size: 200%; }
+main table {
+  border-collapse: collapse; }
+  main table th, main table td {
+    padding: 0 1em;
+    font-family: sans-serif;
+    text-align: left; }
+  main table th:first-child, main table td:first-child {
+    padding-left: 0; }
+  main table th:last-child, main table td:last-child {
+    text-align: right; }
+  main table td:last-child:before {
+    content: "$";
+    display: block;
+    float: left;
+    margin-right: 1em; }
+  main table thead tr:last-child th, main table thead tr:last-child td, main table tbody tr:last-child th, main table tbody tr:last-child td {
+    padding-bottom: 25px; }
+  main table tfoot tr {
+    background-color: #ddeeff; }
+  main table tfoot td {
+    height: 50px;
+    font-weight: bold;
+    vertical-align: middle; }
