@@ -97,20 +97,20 @@
     var chart = new CanvasJS.Chart('expenses-chart', {
       title: {
         text: 'Expenses for ' + MONTHS[new Date().getMonth()].name,
-        fontFamily: 'Helvetica',
+        fontFamily: 'Actor',
         fontSize: 30,
         fontWeight: 300
       },
       axisX: {
-        labelFontFamily: 'Helvetica',
+        labelFontFamily: 'Actor',
         valueFormatString: "MMM D"
       },
       axisY: {
-        labelFontFamily: 'Helvetica',
+        labelFontFamily: 'Actor',
         valueFormatString: '$#,##0.##'
       },
       legend: {
-        fontFamily: 'Helvetica',
+        fontFamily: 'Actor',
       },
       data: [
         {        

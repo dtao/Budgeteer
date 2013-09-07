@@ -4,8 +4,14 @@ $dark: #444
 
 // ----- Typography -----
 
+@import url("//fonts.googleapis.com/css?family=Actor|Faster+One")
+
+header
+  h1
+    font-family: "Faster One"
+
 h1, h2, h3, h4, h5, h6
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+  font-family: "Actor", "Helvetica Neue", Helvetica, Arial, sans-serif
   font-weight: 300
 
 // ----- Layout -----
@@ -55,6 +61,7 @@ main
 
   header
     font-size: 200%
+    text-align: center
 
   form
     margin-top: 15px
@@ -71,11 +78,11 @@ main
       font-size: 200%
 
   table
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
     border-collapse: collapse
 
     th, td
       padding: 0 1em
-      font-family: sans-serif
       text-align: left
 
     th:first-child, td:first-child

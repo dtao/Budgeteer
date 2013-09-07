@@ -1,5 +1,9 @@
+@import url("//fonts.googleapis.com/css?family=Actor|Faster+One");
+header h1 {
+  font-family: "Faster One"; }
+
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Actor", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300; }
 
 body.loading #expenses-table {
@@ -26,7 +30,8 @@ body.loading:before {
   main {
     width: 100%; } }
 main header {
-  font-size: 200%; }
+  font-size: 200%;
+  text-align: center; }
 main form {
   margin-top: 15px;
   margin-bottom: 15px; }
@@ -41,10 +46,10 @@ main form {
     border-bottom: 1px solid black;
     font-size: 200%; }
 main table {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   border-collapse: collapse; }
   main table th, main table td {
     padding: 0 1em;
-    font-family: sans-serif;
     text-align: left; }
   main table th:first-child, main table td:first-child {
     padding-left: 0; }
