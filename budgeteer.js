@@ -15,6 +15,9 @@
     { name: 'December', days: 31 }
   ];
 
+  // TODO: Make this configurable!
+  var BUDGET = 5000;
+
   function makeRequest(method, action, data, callback) {
     var request = new XMLHttpRequest();
     request.open(method, action);
@@ -109,6 +112,7 @@
       },
       axisX: {
         labelFontFamily: 'Actor',
+        valueFontFamily: 'Actor',
         valueFormatString: "MMM D"
       },
       axisY: {
@@ -163,7 +167,7 @@
     var currentDate = new Date(),
         daysInMonth = getDaysInMonth();
 
-    var budget = 3000; // Let's say
+    var budget = BUDGET;
     var targetDailySpending = budget / daysInMonth;
 
     var targetSpendingData = [];
@@ -202,7 +206,8 @@
 
     for (var i = 1; i <= daysInMonth; ++i) {
       (function(date) {
-        var spending = spendingByDay[i] || 0;
+        var spending = spendingByDay[i] || 0,
+            targetSpending = targetSpendingData[date - 1].y;
 
         totalSpending += spending;
 
@@ -213,16 +218,31 @@
           markerType: spending > 0 ? 'circle' : 'none'
         };
 
-        if (totalSpending > targetSpendingData[date - 1].y) {
+        if (totalSpending > targetSpending) {
           dataPoint.color = '#f00';
           dataPoint.markerColor = '#f00';
         }
 
         actualSpendingData.push(dataPoint);
+
+        if (date === currentDate.getDate()) {
+          setSpendingToday(spending, targetSpending);
+        }
+
       }(i));
     }
 
     return actualSpendingData;
+  }
+
+  function setSpendingToday(spending, targetSpending) {
+    var budget  = targetSpending,
+        percent = ((budget - spending) / budget) * 100,
+        bar     = document.querySelector('#spending-bar .remaining'),
+        label   = bar.querySelector('span');
+
+    label.textContent = '$' + (budget - spending).toFixed(2);
+    bar.style.height = bound(percent, 0, 100) + '%';
   }
 
   function getDaysInMonth() {
@@ -261,6 +281,10 @@
 
   function padTime(time) {
     return time >= 10 ? time : '0' + time;
+  }
+
+  function bound(number, min, max) {
+    return Math.min(Math.max(number, min), max);
   }
 
   function parseDate(dateString) {

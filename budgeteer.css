@@ -59,6 +59,8 @@ main form {
   main form input[type="submit"] {
     visibility: hidden; }
 main table {
+  min-width: 50%;
+  margin: auto;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   border-collapse: collapse; }
   main table th, main table td {
@@ -82,3 +84,28 @@ main table {
     height: 50px;
     font-weight: bold;
     vertical-align: middle; }
+main #spending-bar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 50px; }
+  main #spending-bar .remaining {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #008800; }
+    main #spending-bar .remaining span {
+      transform: rotate(90deg);
+      -moz-transform: rotate(90deg);
+      -webkit-transform: rotate(90deg);
+      display: block;
+      position: absolute;
+      top: 10px;
+      width: 50px;
+      color: white;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 40px;
+      line-height: 50px;
+      white-space: nowrap; }

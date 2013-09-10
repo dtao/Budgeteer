@@ -6,6 +6,9 @@ $dark: #444
 
 @import url("//fonts.googleapis.com/css?family=Actor|Faster+One")
 
+$heading-font: "Actor", "Helvetica Neue", Helvetica, Arial, sans-serif
+$label-font:   "Helvetica Neue", Helvetica, Arial, sans-serif
+
 @mixin headings
   h1, h2, h3, h4, h5, h6
     @content
@@ -15,7 +18,7 @@ header
     font-family: "Faster One"
 
 @include headings
-  font-family: "Actor", "Helvetica Neue", Helvetica, Arial, sans-serif
+  font-family: $heading-font
   font-weight: 300
 
 // ----- Layout -----
@@ -36,6 +39,11 @@ header
   box-sizing: border-box
   -moz-box-sizing: border-box
   -webkit-box-sizing: border-box
+
+@mixin rotate($amount)
+  transform: rotate($amount)
+  -moz-transform: rotate($amount)
+  -webkit-transform: rotate($amount)
 
 body.loading
   #expenses-table
@@ -101,7 +109,9 @@ main
       visibility: hidden
 
   table
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+    min-width: 50%
+    margin: auto
+    font-family: $label-font
     border-collapse: collapse
 
     th, td
@@ -134,3 +144,30 @@ main
         height: 50px
         font-weight: bold
         vertical-align: middle
+
+  #spending-bar
+    position: fixed
+    top: 0
+    bottom: 0
+    right: 0
+    width: 50px
+
+    .remaining
+      position: absolute
+      bottom: 0
+      left: 0
+      right: 0
+      background-color: #080
+
+      span
+        @include rotate(90deg)
+
+        display: block
+        position: absolute
+        top: 10px
+        width: 50px
+        color: #fff
+        font-family: $label-font
+        font-size: 40px
+        line-height: 50px
+        white-space: nowrap
