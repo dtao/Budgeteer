@@ -66,6 +66,7 @@ main table {
     text-align: left; }
   main table th:first-child, main table td:first-child {
     padding-left: 0; }
+  main table th:nth-child(2), main table td:nth-child(2),
   main table th:last-child, main table td:last-child {
     text-align: right; }
   main table td:last-child:before {

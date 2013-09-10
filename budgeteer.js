@@ -47,13 +47,19 @@
       refresh = true;
     }
 
+    var expenseDate = new Date(expense.timestamp);
+
     var expenseRow = document.createElement('TR');
     expenseRow.setAttribute('data-expense-id', expense.id);
     expenseRow.setAttribute('data-timestamp', expense.timestamp);
 
     var dateCell = document.createElement('TD');
     expenseRow.appendChild(dateCell);
-    dateCell.textContent = new Date(expense.timestamp).toLocaleString();
+    dateCell.textContent = formatDate(expenseDate);
+
+    var timeCell = document.createElement('TD');
+    expenseRow.appendChild(timeCell);
+    timeCell.textContent = formatTime(expenseDate);
 
     var descriptionCell = document.createElement('TD');
     expenseRow.appendChild(descriptionCell);
@@ -246,11 +252,15 @@
 
     var timePart = [
       hourPart !== 0 ? hourPart : 12,
-      time.getMinutes(),
-      time.getSeconds()
+      padTime(time.getMinutes()),
+      padTime(time.getSeconds())
     ].join(':');
 
     return timePart + ' ' + (hourPart < 12 ? 'AM' : 'PM');
+  }
+
+  function padTime(time) {
+    return time >= 10 ? time : '0' + time;
   }
 
   function parseDate(dateString) {
