@@ -141,6 +141,10 @@
 
   function fetchExpenses() {
     makeRequest('GET', '/expenses', null, function(expenses) {
+      expenses.sort(function(x, y) {
+        return x.timestamp - y.timestamp;
+      });
+
       for (var i = 0; i < expenses.length; ++i) {
         addExpenseToUI(expenses[i], false);
       }
@@ -222,9 +226,51 @@
     return typeof month.days === 'number' ? month.days : month.days(date.getFullYear());
   }
 
+  function formatDateTime(date, time) {
+    return formatDate(date) + ' ' + formatTime(time || date);
+  }
+
+  function formatDate(date) {
+    return [
+      date.getMonth() + 1,
+      date.getDate(),
+      date.getFullYear()
+    ].join('/');
+  }
+
+  function formatTime(time) {
+    var hourPart = time.getHours() % 12;
+    if (hourPart === 0) {
+      hourPart = 12;
+    }
+
+    var timePart = [
+      hourPart !== 0 ? hourPart : 12,
+      time.getMinutes(),
+      time.getSeconds()
+    ].join(':');
+
+    return timePart + ' ' + (hourPart < 12 ? 'AM' : 'PM');
+  }
+
+  function parseDate(dateString) {
+    var datePart = dateString.split('/');
+    var timePart = new Date();
+
+    return new Date(
+      datePart[2],
+      datePart[0] - 1,
+      datePart[1],
+      timePart.getHours(),
+      timePart.getMinutes(),
+      timePart.getSeconds()
+    );
+  }
+
   window.addEventListener('load', function() {
     var expensesForm     = document.getElementById('expenses-form'),
-        descriptionField = expensesForm.querySelector('input[name="description"]');
+        descriptionField = expensesForm.querySelector('input[name="description"]'),
+        dateField        = expensesForm.querySelector('input[name="date"]');
 
     expensesForm.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -236,13 +282,23 @@
 
       var amount      = Number(match[1]);
       var description = match[2];
-      var timestamp   = new Date().getTime();
+      var timestamp   = parseDate(dateField.value).getTime();
 
-      addExpense({ amount: amount, description: description, timestamp: timestamp });
-      expensesForm.reset();
+      addExpense({
+        amount: amount,
+        description: description,
+        timestamp: timestamp
+      });
+
+      descriptionField.value = '';
     });
 
     fetchExpenses();
+
+    var datePicker = new Kalendae.Input(dateField, {
+      format: 'MM/DD/YYYY',
+      selected: formatDate(new Date())
+    });
   });
 
 }(window, document));
