@@ -2,43 +2,42 @@
 %html
 
 %head
-    %title Budgeteer
-    = stylesheet_link_tag("kalendae.css")
-    = stylesheet_link_tag("budgeteer.css")
-    = javascript_include_tag("truman.js")
-    = javascript_include_tag("canvasjs.min.js")
-    = javascript_include_tag("kalendae.standalone.min.js")
-    = javascript_include_tag("budgeteer.js")
+  %title Budgeteer
+  = stylesheet_link_tag("kalendae.css")
+  = stylesheet_link_tag("budgeteer.css")
+  = javascript_include_tag("truman.js")
+  = javascript_include_tag("canvasjs.min.js")
+  = javascript_include_tag("kalendae.standalone.min.js")
+  = javascript_include_tag("budgeteer.js")
 
 %body
-    %main
-        %header
-            %h1 Budgeteer
+  %main
+    %header
+      %h1
+        Budgeteer
+        = link_to("Log out", logout_path) if logged_in?
 
-        = form_tag("/expenses", :id => "expenses-form") do
-            = text_field_tag(:description, nil, :placeholder => "Enter an expense in the form '$50 for groceries'")
-            = text_field_tag(:date)
-            = submit_tag
+    - if logged_in?
+      = yield
 
-        %table#expenses-table
-            %thead
-                %tr
-                    %th Date
-                    %th Time
-                    %th Description
-                    %th Amount
+    - elsif params[:action] == "register"
+      = form_tag(register_path, :id => "register-form") do
+        = text_field_tag(:"user[name]", nil, :placeholder => "Name")
+        = text_field_tag(:"user[email]", nil, :placeholder => "E-mail")
+        = password_field_tag(:"user[password]", nil, :placeholder => "Password")
+        = password_field_tag(:"user[password_confirmation]", nil, :placeholder => "Password confirmation")
+        = submit_tag("Register")
+        = link_to("Log in", root_path)
 
-            %tbody
+    - else
+      = form_tag(login_path, :id => "login-form") do
+        = text_field_tag(:email, nil, :placeholder => "E-mail")
+        = password_field_tag(:password, nil, :placeholder => "Password")
+        = submit_tag("Log in")
+        = link_to("Register", register_path)
 
-            %tfoot
-                %tr
-                    %td
-                    %td
-                    %td Total
-                    %td
+    - if flash[:notice]
+      #notice= flash[:notice]
 
-        #expenses-chart
-
-        #spending-bar
-            .remaining
-                %span
+    - if flash[:error]
+      #error= flash[:error]

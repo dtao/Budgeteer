@@ -1,1 +1,27 @@
-%p Yo.
+= form_tag("/expenses", :id => "expenses-form") do
+  = text_field_tag(:description, nil, :placeholder => "Enter an expense in the form '$50 for groceries'")
+  = text_field_tag(:date)
+  = submit_tag
+
+%table#expenses-table
+  %thead
+    %tr
+      %th Date
+      %th Time
+      %th Description
+      %th Amount
+
+  %tbody
+
+  %tfoot
+    %tr
+      %td
+      %td
+      %td Total
+      %td
+
+#expenses-chart
+
+#spending-bar
+  .remaining
+    %span

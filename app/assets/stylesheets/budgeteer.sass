@@ -17,6 +17,17 @@ header
   h1
     font-family: "Faster One"
 
+    a
+      color: #bbb
+      font-family: $label-font
+      font-size: 50%
+      letter-spacing: -2px
+      text-decoration: none
+      vertical-align: middle
+
+      &:hover
+        color: darken(#bbb, 10%)
+
 @include headings
   font-family: $heading-font
   font-weight: 300
@@ -87,7 +98,8 @@ main
       display: block
       clear: both
 
-    input[type="text"]
+    input[type="text"],
+    input[type="password"]
       @include border-box
 
       display: block
@@ -97,6 +109,26 @@ main
       border-bottom: 1px solid black
       font-size: 200%
 
+  #login-form
+    input[type="text"]
+      width: 50%
+      margin-right: 1%
+
+    input[type="password"]
+      width: 49%
+
+  #register-form
+    input[type="text"],
+    input[type="password"]
+      &:nth-of-type(odd)
+        width: 50%
+        margin-right: 1%
+
+      &:nth-of-type(even)
+        width: 49%
+
+  #expenses-form
+    input[type="text"]
       &:first-of-type
         width: 74%
         margin-right: 1%
