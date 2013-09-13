@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def fail(message, route=nil)
-    flash[:error] = 'No user account found -- have you registered yet?'
+    flash[:error] = message
     redirect_to(route || root_path)
   end
 
