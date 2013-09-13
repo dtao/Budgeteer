@@ -1,2 +1,7 @@
 = form_tag(register_path, :id => "register-form") do
-  = text_field_tag(:name, :placeholder => "Name")
+  = text_field_tag(:"user[name]", nil, :placeholder => "Name")
+  = text_field_tag(:"user[email]", nil, :placeholder => "E-mail")
+  = password_field_tag(:"user[password]", nil, :placeholder => "Password")
+  = password_field_tag(:"user[password_confirmation]", nil, :placeholder => "Password confirmation")
+  = submit_tag("Register")
+  = link_to("Log in", root_path)

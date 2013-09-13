@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  before_filter :ensure_logged_in, :except => [:login, :logout, :register]
+
   def index
   end
 
@@ -11,17 +13,19 @@ class HomeController < ApplicationController
   end
 
   def login
-    user = User.find_by_email(params[:email])
-    if user.nil?
-      return fail('No user account found -- have you registered yet?')
-    end
+    if request.post?
+      user = User.find_by_email(params[:email])
+      if user.nil?
+        return fail('No user account found -- have you registered yet?')
+      end
 
-    if !user.authenticate(params[:password])
-      return fail('Uh oh, wrong password -- are you trying to be sneaky?')
-    end
+      if !user.authenticate(params[:password])
+        return fail('Uh oh, wrong password -- are you trying to be sneaky?')
+      end
 
-    login_user(user)
-    return redirect_to(request.referrer || root_path)
+      login_user(user)
+      return redirect_to(root_path)
+    end
   end
 
   def logout

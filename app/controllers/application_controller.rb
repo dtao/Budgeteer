@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def ensure_logged_in
+    return redirect_to(login_path) unless logged_in?
+  end
+
   def fail(message, route=nil)
     flash[:error] = 'No user account found -- have you registered yet?'
     redirect_to(route || root_path)
