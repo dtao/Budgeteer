@@ -1,0 +1,6 @@
+= form_tag(preferences_path, :id => "preferences-form") do
+  %fieldset
+    .field= text_field_tag(:budget, nil, :placeholder => "Enter a monthly budget")
+
+  .actions
+    = submit_tag("Save")

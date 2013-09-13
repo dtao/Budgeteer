@@ -1,8 +1,7 @@
 class ExpensesController < ApplicationController
   def index
-    user = User.find(current_user[:id])
-    budget = user.budgets.last
-    expenses = user.expenses.order(:id => :desc)
+    budget = current_user.budgets.last
+    expenses = current_user.expenses.order(:id => :desc)
 
     render(:json => {
       :budget => budget.try(:amount),

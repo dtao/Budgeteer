@@ -15,8 +15,7 @@
     { name: 'December', days: 31 }
   ];
 
-  // TODO: Make this configurable!
-  var BUDGET = 5000;
+  var BUDGET;
 
   function makeRequest(method, action, data, callback) {
     var request = new XMLHttpRequest();
@@ -94,9 +93,14 @@
       total += Number(expensesRows[i].querySelector('td:last-child').textContent);
     }
 
-    var totalsRow = document.querySelector('#expenses-table > tfoot tr');
+    var footer    = document.querySelector('#expenses-table > tfoot');
+    var totalsRow = footer.querySelector('tr.total');
     var totalCell = totalsRow.querySelector('td:last-child');
     totalCell.textContent = total.toFixed(2);
+
+    var remainingRow  = footer.querySelector('tr.remaining');
+    var remainingCell = remainingRow.querySelector('td:last-child');
+    remainingCell.textContent = (BUDGET - total).toFixed(2);
   }
 
   function renderChart() {
@@ -151,6 +155,8 @@
 
   function fetchExpenses() {
     makeRequest('GET', '/expenses', null, function(response) {
+      BUDGET = response.budget;
+
       var expenses = response.expenses;
 
       expenses.sort(function(x, y) {
@@ -169,8 +175,7 @@
     var currentDate = new Date(),
         daysInMonth = getDaysInMonth();
 
-    var budget = BUDGET;
-    var targetDailySpending = budget / daysInMonth;
+    var targetDailySpending = BUDGET / daysInMonth;
 
     var targetSpendingData = [];
     for (var i = 1; i <= daysInMonth; ++i) {
@@ -321,13 +326,11 @@
 
       var amount      = Number(match[1]);
       var description = match[2];
-      var timestamp   = parseDate(dateField.value).getTime();
 
       addExpense({
         authenticity_token: authToken,
         amount: amount,
-        description: description,
-        timestamp: timestamp
+        description: description
       });
 
       descriptionField.value = '';

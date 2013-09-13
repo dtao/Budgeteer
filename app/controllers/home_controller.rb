@@ -6,7 +6,7 @@ class HomeController < ApplicationController
 
   def register
     if request.post?
-      user = User.create(user_params)
+      user = User.create!(user_params)
       login_user(user)
       return redirect_to(root_path)
     end
@@ -31,6 +31,13 @@ class HomeController < ApplicationController
   def logout
     logout_user
     redirect_to(root_path)
+  end
+
+  def preferences
+    if request.post?
+      current_user.budgets.create!(:amount => params[:budget])
+      redirect_to(root_path)
+    end
   end
 
   private

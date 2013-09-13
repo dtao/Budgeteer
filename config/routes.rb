@@ -8,9 +8,10 @@ Budgeteer::Application.routes.draw do
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
-  match '/register' => 'home#register', :via => [:get, :post]
-  match '/login'    => 'home#login', :via => [:get, :post]
-  get '/logout'     => 'home#logout'
+  match '/register'    => 'home#register', :via => [:get, :post]
+  match '/login'       => 'home#login', :via => [:get, :post]
+  match '/preferences' => 'home#preferences', :via => [:get, :post]
+  get '/logout'        => 'home#logout'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

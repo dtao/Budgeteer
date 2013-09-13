@@ -12,12 +12,13 @@
       %header
         %h1
           Budgeteer
-          = link_to("Log out", logout_path) if logged_in?
-
-      = yield
+          = link_to("Preferences", preferences_path, :id => "preferences-link") if logged_in?
+          = link_to("Log out", logout_path, :id => "logout-link") if logged_in?
 
       - if flash[:notice]
         #notice= flash[:notice]
 
       - if flash[:error]
         #error= flash[:error]
+
+      = yield

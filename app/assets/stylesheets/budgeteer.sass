@@ -2,6 +2,48 @@
 
 @import "twitter/bootstrap"
 
+@mixin at-width($width)
+  @media all and (min-width: $width)
+    @content
+
+@mixin below-width($width)
+  @media all and (max-width: $width - 1)
+    @content
+
+@mixin hazy($opacity)
+  opacity: $opacity
+  filter: alpha(opacity=$opacity * 100)
+
+// @mixin border-box
+//   box-sizing: border-box
+//   -moz-box-sizing: border-box
+//   -webkit-box-sizing: border-box
+
+// @mixin rotate($amount)
+//   transform: rotate($amount)
+//   -moz-transform: rotate($amount)
+//   -webkit-transform: rotate($amount)
+
+body.loading
+  #expenses-table
+    display: none
+
+  #expenses-chart
+    visibility: hidden
+
+  &:before
+    @include hazy(0.75)
+
+    content: ""
+    display: block
+    position: fixed
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    background: #fff url(/assets/loading.gif) no-repeat center
+    z-index: 1
+
 main
   @extend .container
 
@@ -9,9 +51,21 @@ header
   @extend .page-header
 
   h1 a
-    @extend .btn, .btn-warning, .btn-xs
+    @extend .btn, .btn-xs
 
-#login-form, #register-form
+    &#preferences-link
+      @extend .btn-info
+
+    &#logout-link
+      @extend .btn-warning
+
+#notice
+  @extend .alert, .alert-info
+
+#error
+  @extend .alert, .alert-danger
+
+#register-form, #login-form, #preferences-form
   .field
     @extend .form-group
 
@@ -41,10 +95,10 @@ header
         @extend .form-control
 
     .description
-      @extend .col-lg-8
+      @extend .col-lg-12
 
-    .date
-      @extend .col-lg-4
+    // .date
+    //   @extend .col-lg-4
 
   input[type="submit"]
     visibility: hidden
@@ -52,8 +106,16 @@ header
 #expenses-table
   @extend .table, .table-striped
 
-  thead, tfoot
-    font-weight: bold
+  th:last-child, td:last-child
+    text-align: right
+
+  tfoot tr
+    td
+      font-weight: bold
+
+    &:first-child
+      background-color: $brand-primary
+      color: #fff
 
 #spending-bar
   position: fixed
@@ -67,7 +129,7 @@ header
     bottom: 0
     left: 0
     right: 0
-    background-color: #080
+    background-color: $brand-success
 
     span
       @include rotate(90deg)

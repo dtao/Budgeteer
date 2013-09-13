@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :logged_in?, :current_user
 
+  rescue_from ActiveRecord::ActiveRecordError, :with => :handle_active_record_error
+
   protected
 
   def ensure_logged_in
@@ -29,14 +31,15 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in?
-    current_user[:id].present?
+    !!current_user
   end
 
   def current_user
-    @current_user ||= {
-      :id    => session[:user_id],
-      :name  => session[:user_name],
-      :email => session[:user_email]
-    }
+    @current_user ||= User.find_by_id(session[:user_id])
+  end
+
+  def handle_active_record_error(error)
+    flash[:error] = error.message
+    redirect_to(root_path)
   end
 end

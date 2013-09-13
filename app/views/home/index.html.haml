@@ -2,8 +2,6 @@
   %fieldset
     .description.field
       = text_field_tag(:description, nil, :placeholder => "Enter an expense in the form '$50 for groceries'")
-    .date.field
-      = text_field_tag(:date)
 
   = submit_tag
 
@@ -18,10 +16,15 @@
   %tbody
 
   %tfoot
-    %tr
+    %tr.total
       %td
       %td
       %td Total
+      %td
+    %tr.remaining
+      %td
+      %td
+      %td Remaining
       %td
 
 #expenses-chart
