@@ -334,11 +334,6 @@
     });
 
     fetchExpenses();
-
-    var datePicker = new Kalendae.Input(dateField, {
-      format: 'MM/DD/YYYY',
-      selected: formatDate(new Date())
-    });
   });
 
 }(window, document));
