@@ -11,6 +11,25 @@ header
   h1 a
     @extend .btn, .btn-warning, .btn-xs
 
+#login-form, #register-form
+  .field
+    @extend .form-group
+
+    input
+      @extend .form-control
+
+  .actions
+    @extend .form-group
+
+    input, a
+      @extend .btn, .btn-sm
+
+    input
+      @extend .btn-primary
+
+    a
+      @extend .btn-info
+
 #expenses-form
   fieldset
     @extend .row
