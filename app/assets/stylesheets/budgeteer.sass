@@ -1,205 +1,64 @@
-// ----- Colors -----
+@import "flatly"
 
-$dark: #444
+@import "twitter/bootstrap"
 
-// ----- Typography -----
-
-@import url("//fonts.googleapis.com/css?family=Actor|Faster+One")
-
-$heading-font: "Actor", "Helvetica Neue", Helvetica, Arial, sans-serif
-$label-font:   "Helvetica Neue", Helvetica, Arial, sans-serif
-
-@mixin headings
-  h1, h2, h3, h4, h5, h6
-    @content
+main
+  @extend .container
 
 header
-  h1
-    font-family: "Faster One"
+  @extend .page-header
 
-    a
-      color: #bbb
-      font-family: $label-font
-      font-size: 50%
-      letter-spacing: -2px
-      text-decoration: none
-      vertical-align: middle
+  h1 a
+    @extend .btn, .btn-warning, .btn-xs
 
-      &:hover
-        color: darken(#bbb, 10%)
+#expenses-form
+  fieldset
+    @extend .row
 
-@include headings
-  font-family: $heading-font
-  font-weight: 300
+    margin-bottom: 15px
 
-// ----- Layout -----
+    .field
+      input[type="text"]
+        @extend .form-control
 
-@mixin at-width($width)
-  @media all and (min-width: $width)
-    @content
+    .description
+      @extend .col-lg-8
 
-@mixin below-width($width)
-  @media all and (max-width: $width - 1)
-    @content
+    .date
+      @extend .col-lg-4
 
-@mixin hazy($opacity)
-  opacity: $opacity
-  filter: alpha(opacity=$opacity * 100)
-
-@mixin border-box
-  box-sizing: border-box
-  -moz-box-sizing: border-box
-  -webkit-box-sizing: border-box
-
-@mixin rotate($amount)
-  transform: rotate($amount)
-  -moz-transform: rotate($amount)
-  -webkit-transform: rotate($amount)
-
-body.loading
-  #expenses-table
-    display: none
-
-  #expenses-chart
+  input[type="submit"]
     visibility: hidden
 
-  &:before
-    @include hazy(0.75)
+#expenses-table
+  @extend .table, .table-striped
 
-    content: ""
-    display: block
-    position: fixed
-    top: 0
+  thead, tfoot
+    font-weight: bold
+
+#spending-bar
+  position: fixed
+  top: 0
+  bottom: 0
+  right: 0
+  width: 50px
+
+  .remaining
+    position: absolute
     bottom: 0
     left: 0
     right: 0
-    background: #fff url(/assets/loading.gif) no-repeat center
-    z-index: 1
+    background-color: #080
 
-main
-  @include at-width(960px)
-    width: 75%
-    min-width: 960px
-    margin: auto
-
-  @include below-width(960px)
-    width: 100%
-
-  header
-    font-size: 200%
-    text-align: center
-
-  form
-    position: relative
-    margin-top: 15px
-
-    &:after
-      content: ""
-      display: block
-      clear: both
-
-    input[type="text"],
-    input[type="password"]
-      @include border-box
+    span
+      @include rotate(90deg)
 
       display: block
-      float: left
-      padding: 10px 0
-      border: none
-      border-bottom: 1px solid black
-      font-size: 200%
-
-  #login-form
-    input[type="text"]
-      width: 50%
-      margin-right: 1%
-
-    input[type="password"]
-      width: 49%
-
-  #register-form
-    input[type="text"],
-    input[type="password"]
-      &:nth-of-type(odd)
-        width: 50%
-        margin-right: 1%
-
-      &:nth-of-type(even)
-        width: 49%
-
-  #expenses-form
-    input[type="text"]
-      &:first-of-type
-        width: 74%
-        margin-right: 1%
-
-      &:nth-of-type(2)
-        width: 25%
-
-    // This is a hack!
-    input[type="submit"]
-      visibility: hidden
-
-  table
-    min-width: 50%
-    margin: auto
-    font-family: $label-font
-    border-collapse: collapse
-
-    th, td
-      padding: 0 1em
-      text-align: left
-
-    th:first-child, td:first-child
-      padding-left: 0
-
-    th:nth-child(2), td:nth-child(2),
-    th:last-child, td:last-child
-      text-align: right
-
-    td:last-child:before
-      content: "$"
-      display: block
-      float: left
-      margin-right: 1em
-
-    thead, tbody
-      tr:last-child
-        th, td
-          padding-bottom: 25px
-
-    tfoot
-      tr
-        background-color: #def
-
-      td
-        height: 50px
-        font-weight: bold
-        vertical-align: middle
-
-  #spending-bar
-    position: fixed
-    top: 0
-    bottom: 0
-    right: 0
-    width: 50px
-
-    .remaining
       position: absolute
-      bottom: 0
-      left: 0
-      right: 0
-      background-color: #080
-
-      span
-        @include rotate(90deg)
-
-        display: block
-        position: absolute
-        top: 10px
-        width: 50px
-        color: #fff
-        font-family: $label-font
-        font-size: 40px
-        line-height: 50px
-        white-space: nowrap
+      top: 10px
+      width: 50px
+      color: #fff
+      font-family: $headings-font-family
+      font-size: 40px
+      line-height: 50px
+      white-space: nowrap

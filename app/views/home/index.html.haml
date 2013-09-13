@@ -1,6 +1,10 @@
 = form_tag("/expenses", :id => "expenses-form") do
-  = text_field_tag(:description, nil, :placeholder => "Enter an expense in the form '$50 for groceries'")
-  = text_field_tag(:date)
+  %fieldset
+    .description.field
+      = text_field_tag(:description, nil, :placeholder => "Enter an expense in the form '$50 for groceries'")
+    .date.field
+      = text_field_tag(:date)
+
   = submit_tag
 
 %table#expenses-table
