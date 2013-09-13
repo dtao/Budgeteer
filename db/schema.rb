@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130912032414) do
+ActiveRecord::Schema.define(version: 20130912143019) do
 
   create_table "budgets", force: true do |t|
     t.integer "user_id"
@@ -19,6 +19,17 @@ ActiveRecord::Schema.define(version: 20130912032414) do
   end
 
   add_index "budgets", ["user_id"], name: "index_budgets_on_user_id"
+
+  create_table "expenses", force: true do |t|
+    t.integer  "user_id"
+    t.string   "description"
+    t.decimal  "amount",      precision: 10, scale: 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "expenses", ["created_at"], name: "index_expenses_on_created_at"
+  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "name"

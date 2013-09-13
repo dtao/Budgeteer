@@ -70,7 +70,7 @@
 
     var amountCell = document.createElement('TD');
     expenseRow.appendChild(amountCell);
-    amountCell.textContent = expense.amount.toFixed(2);
+    amountCell.textContent = Number(expense.amount).toFixed(2);
 
     var expensesTable = document.querySelector('#expenses-table > tbody');
     expensesTable.insertBefore(expenseRow, expensesTable.firstChild);
@@ -150,7 +150,9 @@
   }
 
   function fetchExpenses() {
-    makeRequest('GET', '/expenses', null, function(expenses) {
+    makeRequest('GET', '/expenses', null, function(response) {
+      var expenses = response.expenses;
+
       expenses.sort(function(x, y) {
         return x.timestamp - y.timestamp;
       });
@@ -303,11 +305,14 @@
 
   window.addEventListener('load', function() {
     var expensesForm     = document.getElementById('expenses-form'),
+        authTokenField   = expensesForm.querySelector('input[name="authenticity_token"]'),
         descriptionField = expensesForm.querySelector('input[name="description"]'),
         dateField        = expensesForm.querySelector('input[name="date"]');
 
     expensesForm.addEventListener('submit', function(e) {
       e.preventDefault();
+
+      var authToken = authTokenField.value;
 
       var match = (/^\s*\$?(\d+(?:\.\d*)?)\s+(?:for|at|on)\s+(.*)$/).exec(descriptionField.value);
       if (!match) {
@@ -319,6 +324,7 @@
       var timestamp   = parseDate(dateField.value).getTime();
 
       addExpense({
+        authenticity_token: authToken,
         amount: amount,
         description: description,
         timestamp: timestamp
