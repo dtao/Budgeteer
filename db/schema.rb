@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20130912143019) do
     t.decimal "amount",  precision: 10, scale: 2
   end
 
-  add_index "budgets", ["user_id"], name: "index_budgets_on_user_id"
+  add_index "budgets", ["user_id"], name: "index_budgets_on_user_id", using: :btree
 
   create_table "expenses", force: true do |t|
     t.integer  "user_id"
@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 20130912143019) do
     t.datetime "updated_at"
   end
 
-  add_index "expenses", ["created_at"], name: "index_expenses_on_created_at"
-  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
+  add_index "expenses", ["created_at"], name: "index_expenses_on_created_at", using: :btree
+  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -39,6 +39,6 @@ ActiveRecord::Schema.define(version: 20130912143019) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
 end
