@@ -2,6 +2,8 @@
 
 @import "twitter/bootstrap"
 
+@import url("//fonts.googleapis.com/css?family=Sansita+One")
+
 @mixin at-width($width)
   @media all and (min-width: $width)
     @content
@@ -52,14 +54,19 @@ main
 header
   @extend .page-header
 
-  h1 a
-    @extend .btn, .btn-xs
+  h1
+    font-family: "Sansita One", Helvetica, Arial, sans-serif
 
-    &#preferences-link
-      @extend .btn-info
+    a
+      @extend .btn, .btn-xs
 
-    &#logout-link
-      @extend .btn-warning
+      font-family: $font-family-sans-serif
+
+      &#preferences-link
+        @extend .btn-info
+
+      &#logout-link
+        @extend .btn-warning
 
 #notice
   @extend .alert, .alert-info
