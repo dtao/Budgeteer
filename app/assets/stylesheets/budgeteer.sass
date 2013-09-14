@@ -14,15 +14,17 @@
   opacity: $opacity
   filter: alpha(opacity=$opacity * 100)
 
-// @mixin border-box
-//   box-sizing: border-box
-//   -moz-box-sizing: border-box
-//   -webkit-box-sizing: border-box
+@mixin desktop
+  @include at-width($screen-desktop)
+    @content
 
-// @mixin rotate($amount)
-//   transform: rotate($amount)
-//   -moz-transform: rotate($amount)
-//   -webkit-transform: rotate($amount)
+@mixin tablet-or-larger
+  @include at-width($screen-tablet)
+    @content
+
+@mixin smaller-than-tablet
+  @include below-width($screen-tablet)
+    @content
 
 body.loading
   #expenses-table
@@ -106,6 +108,10 @@ header
 #expenses-table
   @extend .table, .table-striped
 
+  th:nth-child(1), td:nth-child(1),
+  th:nth-child(2), td:nth-child(2)
+    @extend .hidden-xs
+
   th:last-child, td:last-child
     text-align: right
 
@@ -118,28 +124,38 @@ header
       color: #fff
 
 #spending-bar
-  position: fixed
-  top: 0
-  bottom: 0
-  right: 0
-  width: 50px
+  // @extend .progress, .progress-striped
 
-  .remaining
-    position: absolute
+  // .remaining
+  //   @extend .progress-bar, .progress-bar-success
+
+  @include tablet-or-larger
+    position: fixed
+    top: 0
     bottom: 0
-    left: 0
     right: 0
-    background-color: $brand-success
+    width: 40px
+    z-index: 1
 
-    span
-      @include rotate(90deg)
-
-      display: block
+    .remaining
       position: absolute
-      top: 10px
-      width: 50px
-      color: #fff
-      font-family: $headings-font-family
-      font-size: 40px
-      line-height: 50px
-      white-space: nowrap
+      bottom: 0
+      left: 0
+      right: 0
+      background-color: $brand-success
+
+      span
+        @include rotate(90deg)
+
+        display: block
+        position: absolute
+        top: 10px
+        width: 40px
+        color: #fff
+        font-family: $headings-font-family
+        font-size: 40px
+        line-height: 40px
+        white-space: nowrap
+
+  @include smaller-than-tablet
+    display: none
