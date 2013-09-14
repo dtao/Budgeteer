@@ -1,0 +1,23 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  database: budgeteer_development
+  username: budgeteer
+  password: passw0rd
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  database: budgeteer_test
+  username: budgeteer
+  password: passw0rd
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  database: budgeteer_production
+  username: budgeteer
+  password: passw0rd
