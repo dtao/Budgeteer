@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Budgeteer::Application.config.secret_key_base = 'f63b69bc0d03e3219f9a3611ec928a57f1eb83114f7781c96039e0d84b38873894a8db1ec476a59d2abde04a87e2703539ae437f855ef39123d041170b5becf3'
+Budgeteer::Application.config.secret_key_base = ENV['SECRET_KEY']
